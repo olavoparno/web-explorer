@@ -311,12 +311,12 @@ namespace WebExplorer
 
                 try
                 {
-                    if (itemUrl.ToUpper().Contains(".jpg")
-                     || itemUrl.ToUpper().Contains(".jpeg")
-                     || itemUrl.ToUpper().Contains(".bmp")
-                     || itemUrl.ToUpper().Contains(".png")
-                     || itemUrl.ToUpper().Contains(".tiff")
-                     || itemUrl.ToUpper().Contains(".gif"))
+                    if (itemUrl.ToUpper().Contains(".JPG")
+                     || itemUrl.ToUpper().Contains(".JPEG")
+                     || itemUrl.ToUpper().Contains(".BMP")
+                     || itemUrl.ToUpper().Contains(".PNG")
+                     || itemUrl.ToUpper().Contains(".TIFF")
+                     || itemUrl.ToUpper().Contains(".GIF"))
                     {
                         LoadPicture(itemUrl);
                     }
