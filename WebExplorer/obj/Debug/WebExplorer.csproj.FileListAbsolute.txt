@@ -1,0 +1,17 @@
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\bin\Debug\WebExplorer.exe.config
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\bin\Debug\WebExplorer.exe
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\bin\Debug\WebExplorer.pdb
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\obj\Debug\WebExplorer.Properties.Resources.resources
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\obj\Debug\WebExplorer.csproj.GenerateResource.Cache
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\obj\Debug\WebExplorer.exe
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\obj\Debug\WebExplorer.pdb
+C:\Users\olli\AppData\Local\Temporary Projects\WebExplorer\obj\Debug\WebExplorer.WebExplorerForm.resources
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\bin\Debug\WebExplorer.exe.config
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\bin\Debug\WebExplorer.exe
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\bin\Debug\WebExplorer.pdb
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.WebExplorerForm.resources
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.Properties.Resources.resources
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.csproj.GenerateResource.Cache
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.exe
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.pdb
+C:\Users\olli\Documents\Visual Studio 2017\Projects\WebExplorer\WebExplorer\obj\Debug\WebExplorer.csprojResolveAssemblyReference.cache
