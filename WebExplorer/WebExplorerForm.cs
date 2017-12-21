@@ -47,7 +47,7 @@ namespace WebExplorer
 
         private void btnList_Click(object sender, EventArgs e)
         {
-            string url = RemoveLastSlash(textBox1.Text).Trim();
+            string url = RemoveLastSlash(txtBoxUrl.Text).Trim();
             // The variable that will be holding the url address (making sure it starts with http://)
             Uri urlFormated = url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(url) : new Uri("http://" + url);
 
@@ -57,7 +57,7 @@ namespace WebExplorer
             {
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    textBox1.Text = response.ResponseUri.AbsoluteUri;
+                    txtBoxUrl.Text = response.ResponseUri.AbsoluteUri;
 
                     string html = reader.ReadToEnd();
                     Regex regex = new Regex(GetDirectoryListingRegexForUrl(url));
@@ -87,19 +87,53 @@ namespace WebExplorer
                                 //imageList.Images.Add(treeNode.Text, IconFromFilePath(textBox1.Text + treeNode.Text).ToBitmap());
                                 //imageList.Images.Add(treeNode.Text, IconFromFilePath(treeNode.Text).ToBitmap());
                                 //treeNode.ImageKey = treeNode.Text;
-
-                                if (System.IO.Path.HasExtension(treeNode.Text))
+                                try
                                 {
-                                    treeNode.NodeFont = normalFont;
-                                    treeNode.Tag = "file";
+                                    if (System.IO.Path.HasExtension(treeNode.Text))
+                                    {
+                                        treeNode.NodeFont = normalFont;
+                                        treeNode.Tag = "file";
+
+                                        switch (treeNode.Text.ToLower())
+                                        {
+                                            case string a when a.EndsWith(".exe"):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("binary.gif");
+                                                break;
+                                            case string a when (a.EndsWith(".jpg") || a.EndsWith(".jpeg") || a.EndsWith(".gif") || a.EndsWith(".png") || a.EndsWith(".bmp") || a.EndsWith(".tiff")):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("image.gif");
+                                                break;
+                                            case string a when (a.EndsWith(".txt") || a.EndsWith(".text") || a.EndsWith(".xml")):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("text.gif");
+                                                break;
+                                            case string a when (a.EndsWith(".mp4") || a.EndsWith(".mov") || a.EndsWith(".avi") || a.EndsWith(".mpeg") || a.EndsWith(".xvid") || a.EndsWith(".wmv") || a.EndsWith(".3gp")):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("movie.gif");
+                                                break;
+                                            case string a when (a.EndsWith(".mp3") || a.EndsWith(".flac") || a.EndsWith(".m4a") || a.EndsWith(".aac") || a.EndsWith(".wma") || a.EndsWith(".wav") || a.EndsWith(".3gp")):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("sound.gif");
+                                                break;
+                                            case string a when a.EndsWith(".pdf"):
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("layout.gif");
+                                                break;
+                                            default:
+                                                treeNode.ImageIndex = imageList.Images.IndexOfKey("unknown.gif");
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        treeNode.NodeFont = boldFont;
+                                        treeNode.Tag = "folder";
+                                        treeNode.ImageIndex = imageList.Images.IndexOfKey("folder.gif");
+                                        treeNode.Nodes.Add(treeNodeDummy);
+                                    }
                                 }
-                                else
+                                catch (Exception)
                                 {
                                     treeNode.NodeFont = boldFont;
                                     treeNode.Tag = "folder";
                                     treeNode.Nodes.Add(treeNodeDummy);
                                 }
-
+                                
                                 treeViewList.Nodes.Add(treeNode);
                             }
                             else
@@ -128,14 +162,14 @@ namespace WebExplorer
                 {
                     curDirDown = curDirDown + "/" + e.Node.Text;
 
-                    textBox1.Text = curDirDown;
+                    txtBoxUrl.Text = curDirDown;
                     btnList_Click(sender, e);
                 }
                 else if (e.Node.Tag.ToString() == "folder" && e.Node.Text == "Parent Directory")
                 {
                     curDirUp = curDirUp + "/../";
 
-                    textBox1.Text = curDirUp;
+                    txtBoxUrl.Text = curDirUp;
                     btnList_Click(sender, e);
                 }
             }
@@ -143,33 +177,6 @@ namespace WebExplorer
             {
                 MessageBox.Show(ex.Message);
             }   
-        }
-
-        private Icon IconFromFilePath(string fileToCopy)
-        {
-            Icon result;
-
-            try
-            {
-                string ext = Path.GetExtension(fileToCopy);
-                result = WebExplorer.Properties.Resources.folder;
-
-                if (ext != "")
-                {
-                    Uri url = new Uri("file://" + fileToCopy);
-
-                    if (url.IsFile)
-                    {
-                        result = Icon.ExtractAssociatedIcon("file://" + fileToCopy);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                result = WebExplorer.Properties.Resources.folder;
-            }
-            
-            return result;
         }
 
         private void treeViewList_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -218,6 +225,7 @@ namespace WebExplorer
                     bool selectionEnd = false;
 
                     TreeNodeCollection nodes = null;
+
                     if (previousNode.Parent == null)
                     {
                         nodes = treeViewList.Nodes;
@@ -226,6 +234,7 @@ namespace WebExplorer
                     {
                         nodes = previousNode.Parent.Nodes;
                     }
+
                     foreach (TreeNode n in nodes)
                     {
                         if (n == currentNode || n == previousNode)
@@ -307,7 +316,7 @@ namespace WebExplorer
 
             if (e.Button == MouseButtons.Left && e.Clicks > 1)
             {
-                string itemUrl = textBox1.Text + currentNode.Text;
+                string itemUrl = txtBoxUrl.Text + currentNode.Text;
 
                 try
                 {
@@ -361,7 +370,7 @@ namespace WebExplorer
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DownloadFile(textBox1.Text + nodeSelection[0].Text, saveFileDialog.FileName);
+                    DownloadFile(txtBoxUrl.Text + nodeSelection[0].Text, saveFileDialog.FileName);
                 }
             }
             else if (nodeSelection.Count > 1)
@@ -372,7 +381,7 @@ namespace WebExplorer
                     foreach (TreeNode item in nodeSelection)
                     {
                         endCount++;
-                        DownloadFile(textBox1.Text + item.Text, folderBrowserDialog.SelectedPath + "\\" + item.Text);
+                        DownloadFile(txtBoxUrl.Text + item.Text, folderBrowserDialog.SelectedPath + "\\" + item.Text);
                     }
                 }
             }
@@ -499,7 +508,7 @@ namespace WebExplorer
 
         private void MenuItem_Click_PictureBox(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = pictureBox.Tag.ToString().Replace(textBox1.Text, "");
+            saveFileDialog.FileName = pictureBox.Tag.ToString().Replace(txtBoxUrl.Text, "");
             saveFileDialog.Filter = "All files (*.*)|*.*|MP3 Audio (.mp3)|*.mp3|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff|Wmf Image (.wmf)|*.wmf|Text file (.txt)|*.txt";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
