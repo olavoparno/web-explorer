@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WebExplorerForm));
+            this.txtBoxUrl = new System.Windows.Forms.TextBox();
             this.btnList = new System.Windows.Forms.Button();
             this.treeViewList = new System.Windows.Forms.TreeView();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -44,20 +45,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtBoxUrl
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 15);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(587, 23);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "http://bitcore.net/stuff/";
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            this.txtBoxUrl.Location = new System.Drawing.Point(16, 15);
+            this.txtBoxUrl.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBoxUrl.Name = "txtBoxUrl";
+            this.txtBoxUrl.Size = new System.Drawing.Size(587, 23);
+            this.txtBoxUrl.TabIndex = 1;
+            this.txtBoxUrl.Text = "http://bitcore.net/stuff/";
+            this.txtBoxUrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
             // btnList
             // 
             this.btnList.Location = new System.Drawing.Point(619, 13);
-            this.btnList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnList.Margin = new System.Windows.Forms.Padding(4);
             this.btnList.Name = "btnList";
             this.btnList.Size = new System.Drawing.Size(100, 25);
             this.btnList.TabIndex = 2;
@@ -71,7 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewList.HideSelection = false;
             this.treeViewList.Location = new System.Drawing.Point(16, 47);
-            this.treeViewList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeViewList.Margin = new System.Windows.Forms.Padding(4);
             this.treeViewList.Name = "treeViewList";
             this.treeViewList.Size = new System.Drawing.Size(587, 611);
             this.treeViewList.TabIndex = 3;
@@ -81,14 +82,21 @@
             // 
             // imageList
             // 
-            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "folder.gif");
+            this.imageList.Images.SetKeyName(1, "image.gif");
+            this.imageList.Images.SetKeyName(2, "sound.gif");
+            this.imageList.Images.SetKeyName(3, "binary.gif");
+            this.imageList.Images.SetKeyName(4, "movie.gif");
+            this.imageList.Images.SetKeyName(5, "text.gif");
+            this.imageList.Images.SetKeyName(6, "unknown.gif");
+            this.imageList.Images.SetKeyName(7, "layout.gif");
             // 
             // progressBar
             // 
             this.progressBar.Location = new System.Drawing.Point(619, 552);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(500, 22);
             this.progressBar.TabIndex = 4;
@@ -158,9 +166,9 @@
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.treeViewList);
             this.Controls.Add(this.btnList);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBoxUrl);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "WebExplorerForm";
             this.Text = "WebExplorer";
             this.Load += new System.EventHandler(this.WebExplorerForm_Load);
@@ -171,7 +179,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxUrl;
         private System.Windows.Forms.Button btnList;
         private System.Windows.Forms.TreeView treeViewList;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
