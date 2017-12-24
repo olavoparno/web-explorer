@@ -52,6 +52,8 @@ namespace WebExplorer
             Uri urlFormated = url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(url) : new Uri("http://" + url);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlFormated);
+            addedNodesSearch.Clear();
+            removedNodesSearch.Clear();
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
@@ -520,31 +522,35 @@ namespace WebExplorer
             lblPercentage.Text = "";
         }
 
+        List<TreeNode> addedNodesSearch = new List<TreeNode>();
+        List<TreeNode> removedNodesSearch = new List<TreeNode>();
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (treeViewList.Nodes.Count > 0 && txtSearch.Text.Length > 2)
             {
                 string txtCheck = txtSearch.Text;
-                List<TreeNode> addedNodes = new List<TreeNode>();
-                List<TreeNode> removedNodes = new List<TreeNode>();
 
                 foreach (TreeNode item in treeViewList.Nodes)
                 {
                     if (item.Text.ToLower().Contains(txtCheck.ToLower()))
                     {
-                        addedNodes.Add(item);
+                        addedNodesSearch.Add(item);
                     }
                     else
                     {
-                        removedNodes.Add(item);
+                        removedNodesSearch.Add(item);
                     }
                 }
 
-                if (addedNodes.Count > 0)
+                if (addedNodesSearch.Count > 0)
                 {
-                    changeSelection(addedNodes, removedNodes);
+                    changeSelection(addedNodesSearch, removedNodesSearch);
 
-                    addedNodes[0].EnsureVisible();
+                    foreach (TreeNode item in removedNodesSearch)
+                    {
+                        treeViewList.Nodes.Remove(item);
+                    }
                 }
                 else
                 {
@@ -562,6 +568,29 @@ namespace WebExplorer
             if (e.KeyCode == Keys.Enter)
             {
                 btnSearch_Click(sender, e);
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearch.Text.Length == 0)
+            {
+                if (addedNodesSearch.Count > 0 && removedNodesSearch.Count > 0)
+                {
+                    treeViewList.Nodes.Clear();
+
+                    foreach (TreeNode itemRem in removedNodesSearch)
+                    {
+                        treeViewList.Nodes.Add(itemRem);
+                    }
+
+                    foreach (TreeNode itemAdd in addedNodesSearch)
+                    {
+                        treeViewList.Nodes.Add(itemAdd);
+                    }
+
+                    changeSelection(new List<TreeNode>(), addedNodesSearch);
+                }
             }
         }
     }
