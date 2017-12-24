@@ -41,14 +41,16 @@
             this.lblPercentage = new System.Windows.Forms.Label();
             this.lblDownloadSpeed = new System.Windows.Forms.Label();
             this.lblDownloadSize = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // txtBoxUrl
             // 
-            this.txtBoxUrl.Location = new System.Drawing.Point(16, 15);
-            this.txtBoxUrl.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBoxUrl.Location = new System.Drawing.Point(3, 4);
+            this.txtBoxUrl.Margin = new System.Windows.Forms.Padding(0);
             this.txtBoxUrl.Name = "txtBoxUrl";
             this.txtBoxUrl.Size = new System.Drawing.Size(587, 23);
             this.txtBoxUrl.TabIndex = 1;
@@ -57,10 +59,10 @@
             // 
             // btnList
             // 
-            this.btnList.Location = new System.Drawing.Point(619, 13);
+            this.btnList.Location = new System.Drawing.Point(592, 3);
             this.btnList.Margin = new System.Windows.Forms.Padding(4);
             this.btnList.Name = "btnList";
-            this.btnList.Size = new System.Drawing.Size(100, 25);
+            this.btnList.Size = new System.Drawing.Size(66, 25);
             this.btnList.TabIndex = 2;
             this.btnList.Text = "List";
             this.btnList.UseVisualStyleBackColor = true;
@@ -71,10 +73,10 @@
             this.treeViewList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewList.HideSelection = false;
-            this.treeViewList.Location = new System.Drawing.Point(16, 47);
-            this.treeViewList.Margin = new System.Windows.Forms.Padding(4);
+            this.treeViewList.Location = new System.Drawing.Point(3, 31);
+            this.treeViewList.Margin = new System.Windows.Forms.Padding(0);
             this.treeViewList.Name = "treeViewList";
-            this.treeViewList.Size = new System.Drawing.Size(587, 611);
+            this.treeViewList.Size = new System.Drawing.Size(587, 639);
             this.treeViewList.TabIndex = 3;
             this.treeViewList.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeViewList_AfterExpand);
             this.treeViewList.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewList_BeforeSelect);
@@ -95,7 +97,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(619, 552);
+            this.progressBar.Location = new System.Drawing.Point(593, 535);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(500, 22);
@@ -104,7 +106,7 @@
             // lblDownload
             // 
             this.lblDownload.AutoSize = true;
-            this.lblDownload.Location = new System.Drawing.Point(616, 578);
+            this.lblDownload.Location = new System.Drawing.Point(590, 559);
             this.lblDownload.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDownload.Name = "lblDownload";
             this.lblDownload.Size = new System.Drawing.Size(101, 16);
@@ -115,17 +117,17 @@
             // 
             this.lblPercentage.AutoSize = true;
             this.lblPercentage.BackColor = System.Drawing.Color.Transparent;
-            this.lblPercentage.Location = new System.Drawing.Point(869, 555);
+            this.lblPercentage.Location = new System.Drawing.Point(828, 538);
             this.lblPercentage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPercentage.Name = "lblPercentage";
-            this.lblPercentage.Size = new System.Drawing.Size(152, 16);
+            this.lblPercentage.Size = new System.Drawing.Size(37, 16);
             this.lblPercentage.TabIndex = 6;
-            this.lblPercentage.Text = "labelDownloadPercent";
+            this.lblPercentage.Text = "50%";
             // 
             // lblDownloadSpeed
             // 
             this.lblDownloadSpeed.AutoSize = true;
-            this.lblDownloadSpeed.Location = new System.Drawing.Point(616, 594);
+            this.lblDownloadSpeed.Location = new System.Drawing.Point(590, 575);
             this.lblDownloadSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDownloadSpeed.Name = "lblDownloadSpeed";
             this.lblDownloadSpeed.Size = new System.Drawing.Size(142, 16);
@@ -135,18 +137,38 @@
             // lblDownloadSize
             // 
             this.lblDownloadSize.AutoSize = true;
-            this.lblDownloadSize.Location = new System.Drawing.Point(616, 610);
+            this.lblDownloadSize.Location = new System.Drawing.Point(590, 591);
             this.lblDownloadSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDownloadSize.Name = "lblDownloadSize";
             this.lblDownloadSize.Size = new System.Drawing.Size(128, 16);
             this.lblDownloadSize.TabIndex = 8;
             this.lblDownloadSize.Text = "labelDownloadSize";
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Enabled = false;
+            this.txtSearch.Location = new System.Drawing.Point(660, 4);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(408, 23);
+            this.txtSearch.TabIndex = 3;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Enabled = false;
+            this.btnSearch.Image = global::WebExplorer.Properties.Resources.search_icon;
+            this.btnSearch.Location = new System.Drawing.Point(1070, 3);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(24, 25);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // pictureBox
             // 
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox.Location = new System.Drawing.Point(619, 47);
+            this.pictureBox.Location = new System.Drawing.Point(593, 31);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(500, 500);
             this.pictureBox.TabIndex = 9;
@@ -157,7 +179,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1137, 673);
+            this.ClientSize = new System.Drawing.Size(1096, 673);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblDownloadSize);
             this.Controls.Add(this.lblDownloadSpeed);
@@ -168,6 +192,7 @@
             this.Controls.Add(this.btnList);
             this.Controls.Add(this.txtBoxUrl);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "WebExplorerForm";
             this.Text = "WebExplorer";
@@ -191,6 +216,8 @@
         private System.Windows.Forms.Label lblDownloadSpeed;
         private System.Windows.Forms.Label lblDownloadSize;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 

@@ -64,6 +64,8 @@ namespace WebExplorer
                     MatchCollection matches = regex.Matches(html);
                     if (matches.Count > 0)
                     {
+                        btnSearch.Enabled = true;
+                        txtSearch.Enabled = true;
                         treeViewList.Nodes.Clear();
                         treeViewList.ImageList = imageList;
                         foreach (Match match in matches)
@@ -80,8 +82,8 @@ namespace WebExplorer
 
                                 TreeNode treeNode = new TreeNode()
                                 {
-                                    Name = match.Value.ToString(),
-                                    Text = match.Groups["name"].Value.ToString()
+                                    Name = match.Value.ToString().TrimStart(),
+                                    Text = match.Groups["name"].Value.ToString().TrimStart()
                                 };
 
                                 //imageList.Images.Add(treeNode.Text, IconFromFilePath(textBox1.Text + treeNode.Text).ToBitmap());
@@ -316,7 +318,7 @@ namespace WebExplorer
 
             if (e.Button == MouseButtons.Left && e.Clicks > 1)
             {
-                string itemUrl = txtBoxUrl.Text + currentNode.Text;
+                string itemUrl = txtBoxUrl.Text + currentNode.Text.TrimStart();
 
                 try
                 {
@@ -454,13 +456,6 @@ namespace WebExplorer
                 (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
         }
         
-        private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            lblPercentage.Text = "";
-            progressBar.Value = 0;
-            MessageBox.Show("Download complete.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         protected void changeSelection(List<TreeNode> addedNodes, List<TreeNode> removedNodes)
         {
             foreach (TreeNode n in addedNodes)
@@ -523,6 +518,51 @@ namespace WebExplorer
             lblDownloadSize.Text = "";
             lblDownloadSpeed.Text = "";
             lblPercentage.Text = "";
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (treeViewList.Nodes.Count > 0 && txtSearch.Text.Length > 2)
+            {
+                string txtCheck = txtSearch.Text;
+                List<TreeNode> addedNodes = new List<TreeNode>();
+                List<TreeNode> removedNodes = new List<TreeNode>();
+
+                foreach (TreeNode item in treeViewList.Nodes)
+                {
+                    if (item.Text.ToLower().Contains(txtCheck.ToLower()))
+                    {
+                        addedNodes.Add(item);
+                    }
+                    else
+                    {
+                        removedNodes.Add(item);
+                    }
+                }
+
+                if (addedNodes.Count > 0)
+                {
+                    changeSelection(addedNodes, removedNodes);
+
+                    addedNodes[0].EnsureVisible();
+                }
+                else
+                {
+                    MessageBox.Show("No ocurrence found.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please write at least 3 characters for best results.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(sender, e);
+            }
         }
     }
 }
