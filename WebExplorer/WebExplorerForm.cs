@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace WebExplorer
 {
-    public partial class WebExplorerForm : Form
+    public partial class WebExplorerForm : MetroFramework.Forms.MetroForm
     {
         Font boldFont;
         Font normalFont;
@@ -400,7 +400,7 @@ namespace WebExplorer
             {
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-
+                
                 // The variable that will be holding the url address (making sure it starts with http://)
                 Uri URL = urlAddress.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("http://" + urlAddress);
 
@@ -412,6 +412,7 @@ namespace WebExplorer
                     // Start downloading the file
                     webClient.DownloadFileAsync(URL, location);
                     lblDownload.Text = "Downloading file: " + urlAddress;
+                    progressSpin.Show();
                 }
                 catch (Exception ex)
                 {
@@ -439,6 +440,7 @@ namespace WebExplorer
             lblDownloadSpeed.Text = "";
             lblDownload.Text = "";
             progressBar.Value = 0;
+            progressSpin.Hide();
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -448,6 +450,7 @@ namespace WebExplorer
 
             // Update the progressbar percentage only when the value is not the same.
             progressBar.Value = e.ProgressPercentage;
+            progressSpin.Spinning = true;
 
             // Show the percentage on our label.
             lblPercentage.Text = e.ProgressPercentage.ToString() + "%";
