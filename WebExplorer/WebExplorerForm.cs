@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace WebExplorer
 {
-    public partial class WebExplorerForm : Form
+    public partial class WebExplorerForm : MetroFramework.Forms.MetroForm
     {
         Font boldFont;
         Font normalFont;
@@ -88,9 +88,6 @@ namespace WebExplorer
                                     Text = match.Groups["name"].Value.ToString().TrimStart()
                                 };
 
-                                //imageList.Images.Add(treeNode.Text, IconFromFilePath(textBox1.Text + treeNode.Text).ToBitmap());
-                                //imageList.Images.Add(treeNode.Text, IconFromFilePath(treeNode.Text).ToBitmap());
-                                //treeNode.ImageKey = treeNode.Text;
                                 try
                                 {
                                     if (System.IO.Path.HasExtension(treeNode.Text))
@@ -298,17 +295,19 @@ namespace WebExplorer
 
                     treeViewList.SelectedNode = currentNode;
 
-                    ContextMenu context = new ContextMenu();
-                    MenuItem menuItem = new MenuItem();
                     Point position = new Point(e.X, e.Y + 10);
 
-                    menuItem.Name = "";
-                    menuItem.Text = "Download";
-                    menuItem.Tag = selectedNodes;
-                    menuItem.Click += MenuItem_Click;
+                    ToolStripMenuItem contextItemList = new ToolStripMenuItem();
 
-                    context.MenuItems.Add(menuItem);
-                    context.Show(treeViewList, position);
+                    metroContextMenu.Items.Clear();
+
+                    contextItemList.Name = "DownloadList";
+                    contextItemList.Text = "Download";
+                    contextItemList.Tag = selectedNodes;
+                    contextItemList.Click += MenuItem_Click;
+
+                    metroContextMenu.Items.Add(contextItemList);
+                    metroContextMenu.Show(treeViewList, position);
                 }
                 else
                 {
@@ -362,7 +361,7 @@ namespace WebExplorer
 
         private void MenuItem_Click(object sender, EventArgs e)
         {
-            MenuItem menuItem = (MenuItem)sender;
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
             List<TreeNode> nodeSelection = (List<TreeNode>)menuItem.Tag;
 
             saveFileDialog.Title = "Choose your path";
@@ -400,7 +399,7 @@ namespace WebExplorer
             {
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-
+                
                 // The variable that will be holding the url address (making sure it starts with http://)
                 Uri URL = urlAddress.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("http://" + urlAddress);
 
@@ -412,6 +411,7 @@ namespace WebExplorer
                     // Start downloading the file
                     webClient.DownloadFileAsync(URL, location);
                     lblDownload.Text = "Downloading file: " + urlAddress;
+                    progressSpin.Show();
                 }
                 catch (Exception ex)
                 {
@@ -439,6 +439,7 @@ namespace WebExplorer
             lblDownloadSpeed.Text = "";
             lblDownload.Text = "";
             progressBar.Value = 0;
+            progressSpin.Hide();
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -448,6 +449,7 @@ namespace WebExplorer
 
             // Update the progressbar percentage only when the value is not the same.
             progressBar.Value = e.ProgressPercentage;
+            progressSpin.Spinning = true;
 
             // Show the percentage on our label.
             lblPercentage.Text = e.ProgressPercentage.ToString() + "%";
@@ -489,17 +491,17 @@ namespace WebExplorer
         {
             if (e.Button == MouseButtons.Right && pictureBox.Tag != null)
             {
-                ContextMenu context = new ContextMenu();
-                MenuItem menuItem = new MenuItem();
                 Point position = new Point(e.X, e.Y + 10);
 
-                menuItem.Name = "";
-                menuItem.Text = "Download";
-                
-                menuItem.Click += MenuItem_Click_PictureBox;
+                ToolStripMenuItem contextItemPicture = new ToolStripMenuItem();
 
-                context.MenuItems.Add(menuItem);
-                context.Show(pictureBox, position);
+                metroContextMenu.Items.Clear();
+                contextItemPicture.Name = "DownloadPict";
+                contextItemPicture.Text = "Download";
+                contextItemPicture.Click += MenuItem_Click_PictureBox;
+
+                metroContextMenu.Items.Add(contextItemPicture);
+                metroContextMenu.Show(pictureBox, position);                               
             }
         }
 
